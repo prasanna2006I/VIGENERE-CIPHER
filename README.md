@@ -1,5 +1,6 @@
 # VIGENERE-CIPHER
 ## EX. NO: 1(D)
+## DATE:08/04/2025
  
 
 ## IMPLEMETATION OF VIGENERE CIPHER
@@ -30,7 +31,69 @@ STEP-8: Repeat the above steps to generate the entire cipher text.
 
 
 ## PROGRAM
+```
+#include <stdio.h>
+#include <string.h>
 
+// Function to perform Vigenère encryption
+void vigenereEncrypt(char text[], const char key[]) {
+    int textLen = strlen(text);
+    int keyLen = strlen(key);
+    
+    for (int i = 0; i < textLen; i++) {
+        char c = text[i];
+        if (c >= 'A' && c <= 'Z') { // Encrypt uppercase letters
+            text[i] = ((c - 'A' + key[i % keyLen] - 'A') % 26) + 'A';
+        } else if (c >= 'a' && c <= 'z') { // Encrypt lowercase letters
+            text[i] = ((c - 'a' + key[i % keyLen] - 'A') % 26) + 'a';
+        }
+    }
+}
+
+// Function to perform Vigenère decryption
+void vigenereDecrypt(char text[], const char key[]) {
+    int textLen = strlen(text);
+    int keyLen = strlen(key);
+    
+    for (int i = 0; i < textLen; i++) {
+        char c = text[i];
+        if (c >= 'A' && c <= 'Z') { // Decrypt uppercase letters
+            text[i] = ((c - 'A' - (key[i % keyLen] - 'A') + 26) % 26) + 'A';
+        } else if (c >= 'a' && c <= 'z') { // Decrypt lowercase letters
+            text[i] = ((c - 'a' - (key[i % keyLen] - 'A') + 26) % 26) + 'a';
+        }
+    }
+}
+
+int main() {
+    char key[100], message[1000];
+    
+    // Take key and message input from the user
+    printf("Enter the key: ");
+    fgets(key, sizeof(key), stdin);
+    key[strcspn(key, "\n")] = 0; // Remove newline character from key
+    
+    printf("Enter the message: ");
+    fgets(message, sizeof(message), stdin);
+    message[strcspn(message, "\n")] = 0; // Remove newline character from message
+    
+    // Encrypt the message
+    vigenereEncrypt(message, key);
+    printf("Encrypted Message: %s\n", message);
+    
+    // Decrypt the message back to the original
+    vigenereDecrypt(message, key);
+    printf("Decrypted Message: %s\n", message);
+    
+    return 0;
+}
+
+
+```
 ## OUTPUT
+![image](https://github.com/user-attachments/assets/e2cf7ce6-b8e8-45fd-9287-bed669de49ef)
+
+
 
 ## RESULT
+THE PROGRAM WAS EXCUTE SUCCESSFULLY
